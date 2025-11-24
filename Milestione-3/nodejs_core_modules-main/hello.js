@@ -1,3 +1,2 @@
-console.log("node version: ", process.version);
-console.log("Platform :", process.platform);
-
+console.log("Node Version " , process.version);
+console.log("The Platform is :--->" ,process.platform);
