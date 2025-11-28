@@ -1,72 +1,36 @@
 
 import http,{IncomingMessage, Server , ServerResponse}from "http";
 import { url } from "inspector";
-import path from "path";
+import path, { parse } from "path";
 import config from "./config";
 import { appendFile } from "fs";
+import addRoute, { RoteHandler, routes } from "./helpers/route-handler";
 
+import "./Routes"
 const server : Server = http.createServer((req : IncomingMessage , res : ServerResponse) =>{
 
-    // Root Route
-if(req.url == '/' && req.method == "GET"){
-    res.writeHead(200 , {"content-type" : "application/json"});
-    res.end(JSON.stringify({message : "Hellow world this is my first nodejs server using Type-Script",
-        path : req.url, 
-    }))
-    
-}
+    const method = req.method?.toUpperCase() || "";
+    const path = req.url || "";
 
+    const methodMap = routes.get(method)
+    const handler : RoteHandler | undefined = methodMap?.get(path)
 
-//Health Route
-
-if(req.url == '/api' && req.method == "GET"){
-
-     res.writeHead(200 , {"content-type" : "application/json"});
-    res.end(JSON.stringify({message : "Health Status ok",
-        path : req.url, 
-    }))
-}
-
-
-if(req.url == "/api/users" && req.method == "POST"){
-//     const user = {
-//         id: 1,
-//         name : "alice" ,
-//     };
-
-
-//   res.writeHead(200 , {"content-type" : "application/json"});
-//     res.end(JSON.stringify(user))
-
-
-
-let body = '';
-
-// listen for data chunk 
-req.on("data" , chunk => {
-    body += chunk.toString();
-})
-req.on("end",()=>{
-    const parseBody = JSON.parse(body);
-    console.log();
-});
-
-
-res.end(JSON.stringify(
-    {
-        message : "processing-----"
+    if(handler){
+       handler(req, res);
     }
-))
-
-
-
-}
-
-
-
+    else{
+        res.writeHead(404 , {"content-type" : "application/json"})
+        res.end(JSON.stringify({
+            success : false,
+            message : "Route not found !!!",
+            path : req.url,
+            
+        }));
+    }
 
 })
 
 server.listen(config.port,()=> {
     console.log(`Server is running on PORT${config.port}`)
 })
+
