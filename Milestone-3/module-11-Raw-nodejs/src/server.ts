@@ -7,6 +7,10 @@ import { appendFile } from "fs";
 import addRoute, { RoteHandler, routes } from "./helpers/route-handler";
 
 import "./Routes"
+import findDynamicRoute from "./helpers/dynamic-route-handler";
+
+
+
 const server : Server = http.createServer((req : IncomingMessage , res : ServerResponse) =>{
 
     const method = req.method?.toUpperCase() || "";
@@ -17,6 +21,12 @@ const server : Server = http.createServer((req : IncomingMessage , res : ServerR
 
     if(handler){
        handler(req, res);
+    }
+    else if(findDynamicRoute(method , path)){
+     
+        const match = findDynamicRoute(method , path);
+        (req as any).params = match?.params;
+        match?.handler(req,res);
     }
     else{
         res.writeHead(404 , {"content-type" : "application/json"})
