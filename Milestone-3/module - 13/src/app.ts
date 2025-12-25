@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import cors from "cors";
 import config from "./config";
 import initDB from "./config/db";
 import logger from "./middleware/logger";
@@ -8,13 +7,6 @@ import { todoRoutes } from "./modules/todo/todo.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
 
 const app = express();
-
-// CORS middleware
-app.use(cors({
-  origin: "http://localhost:3000", // Allow requests from frontend
-  credentials: true
-}));
-
 // parser
 app.use(express.json());
 // app.use(express.urlencoded());
