@@ -37,13 +37,13 @@ pnpm install
 #### 2.1: Create a Database
 Create a new PostgreSQL database. Example:
 ```sql
-CREATE DATABASE prisma_blog_app;
+CREATE DATABASE "prisma-blog-app";
 ```
 
 #### 2.2: Configure Environment Variables
 Create a `.env` file in the project root and add the database connection string:
 ```
-DATABASE_URL="postgresql://<username>:<password>@localhost:5432/prisma_blog_app"
+DATABASE_URL="postgresql://<username>:<password>@localhost:5432/prisma-blog-app"
 ```
 Replace `<username>` and `<password>` with your PostgreSQL credentials.
 
@@ -62,7 +62,7 @@ Run the following command to start the development server:
 ```bash
 pnpm dev
 ```
-The server will start at `http://localhost:3000`.
+The server will start at `http://localhost:5000`.
 
 ---
 
@@ -201,4 +201,8 @@ prisma-blog-server-part-5/
 ---
 
 ## **Additional Notes**
+- If you face any issues, ensure all dependencies are installed and the database is running.
+- Refer to the code comments for detailed explanations of each function.
+- Authentication is handled via Better Auth, supporting email/password and Google OAuth.
 
+Happy coding!
