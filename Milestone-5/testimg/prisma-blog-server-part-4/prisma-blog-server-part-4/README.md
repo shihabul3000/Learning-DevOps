@@ -184,7 +184,4 @@ prisma-blog-server-part-4/
 ---
 
 ## **Additional Notes**
-- If you face any issues, ensure all dependencies are installed and the database is running.
-- Refer to the code comments for detailed explanations of each function.
 
-Happy coding!
