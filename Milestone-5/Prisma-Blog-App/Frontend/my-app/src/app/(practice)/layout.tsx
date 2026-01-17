@@ -27,6 +27,12 @@ export default function PracticeLayout({
         <Link className="hover:underline" href="/sales">
           Sales
         </Link>
+        <Link className="hover:underline" href="/sales/me">
+          ME
+        </Link>
+        <Link className="hover:underline" href="/sales/me/who">
+          Who
+        </Link>
       </nav>
 
       <div className="flex">
